@@ -19,6 +19,7 @@ process_this_frame = True
 
 while True:
     ret, frame = video_capture.read()
+    frame = cv2.flip(frame,1)
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
     rgb_small_frame = small_frame[:, :, ::-1]
     if process_this_frame:
@@ -48,6 +49,12 @@ while True:
             cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
             cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+            ####-----------------------------------------
+
+
+
+            ####-----------------------------------------
+    
     cv2.imshow('Video', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
