@@ -1,25 +1,27 @@
 import face_recognition
 import cv2
 
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture(1)
+# video_capture = cv2.VideoCapture('v.mp4')
 
 known_face_encodings = []
 known_face_names = []
-person1_location = ["Prabda","ray"]
+person1_location = ["ray","Prabda","BILL"]
 n = 0
 number_img = 0
 
 for name in person1_location :
-    while number_img <= 10:
+    while number_img <= 30:
         person_image = face_recognition.load_image_file("image_train/"+name+"/face"+str(n)+".jpg")
         # print(person_image)
         # print(face_recognition.face_encodings(person_image)[0])
         if len(face_recognition.face_encodings(person_image)) > 0 :
-            print("Read image_train/"+name+"/face"+str(n)+".jpg")
+            print("Read image_train/"+name+"/face"+str(n)+".jpg",len(face_recognition.face_encodings(person_image)[0]))
             known_face_encodings.append(face_recognition.face_encodings(person_image)[0])
             known_face_names.append(name)
             number_img += 1
         n += 1
+    n = 0
     number_img = 0
 
 face_locations = []
@@ -32,13 +34,14 @@ while True:
     frame = cv2.flip(frame,1)
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
     rgb_small_frame = small_frame[:, :, ::-1]
-    if process_this_frame:
-        face_locations = face_recognition.face_locations(rgb_small_frame)
-        face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+    face_locations = face_recognition.face_locations(rgb_small_frame)
+    face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+    if len(face_encodings) > 0 :
         face_names = []
         for face_encoding in face_encodings:
-            matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+            matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.6)
             name = "Unknown"
+            print(known_face_encodings[32][0],face_encoding[0])
             if True in matches:
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
