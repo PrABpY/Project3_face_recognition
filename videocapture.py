@@ -5,12 +5,22 @@ video_capture = cv2.VideoCapture(0)
 
 known_face_encodings = []
 known_face_names = []
-person1_location = "Prabda"
+person1_location = ["Prabda","ray"]
+n = 0
+number_img = 0
 
-for i in range(1,13):
-    person_image = face_recognition.load_image_file("image_train/"+person1_location+"/image"+str(i)+".jpg")
-    known_face_encodings.append(face_recognition.face_encodings(person_image)[0])
-    known_face_names.append(person1_location)
+for name in person1_location :
+    while number_img <= 10:
+        person_image = face_recognition.load_image_file("image_train/"+name+"/face"+str(n)+".jpg")
+        # print(person_image)
+        # print(face_recognition.face_encodings(person_image)[0])
+        if len(face_recognition.face_encodings(person_image)) > 0 :
+            print("Read image_train/"+name+"/face"+str(n)+".jpg")
+            known_face_encodings.append(face_recognition.face_encodings(person_image)[0])
+            known_face_names.append(name)
+            number_img += 1
+        n += 1
+    number_img = 0
 
 face_locations = []
 face_encodings = []
