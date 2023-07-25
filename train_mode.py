@@ -27,3 +27,4 @@ for name in person1_location :
     d_m = []
     n = 0
     number_img = 0
+print(len(known_face_encodings))

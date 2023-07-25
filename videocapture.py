@@ -1,6 +1,16 @@
 import face_recognition
 import cv2
 
+def check(matches,person1_location):
+    num = len(matches)//3
+    p1 = matches[0:num].count(True)
+    p2 = matches[num:num*2].count(True)
+    p3 = matches[num*2:num*3].count(True)
+    if p1 > p2 and p1 > p3 : return person1_location[0]
+    if p2 > p1 and p2 > p3 : return person1_location[1]
+    if p3 > p1 and p3 > p2 : return person1_location[2]
+    return "Unknown"
+
 video_capture = cv2.VideoCapture(1)
 # video_capture = cv2.VideoCapture('v.mp4')
 
@@ -40,14 +50,9 @@ while True:
         face_names = []
         for face_encoding in face_encodings:
             matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.6)
-            name = "Unknown"
-            print(known_face_encodings[32][0],face_encoding[0])
-            if True in matches:
-                first_match_index = matches.index(True)
-                name = known_face_names[first_match_index]
-            face_names.append(name)
-
-    process_this_frame = not process_this_frame
+            per = check(matches,person1_location)
+            # print(per)
+            face_names.append(per)
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         top *= 4
         right *= 4
