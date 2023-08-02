@@ -13,7 +13,7 @@ while True :
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
         faces = frame[y:y + h, x:x + w]
         # cv2.imshow("face",faces)
-        cv2.imwrite('image_train/Golf/face'+str(number)+'.jpg', faces)
+        cv2.imwrite('image_train/Jesky/face'+str(number)+'.jpg', faces)
         number += 1
           
     # cv2.imwrite('detcted.jpg', img)

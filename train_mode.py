@@ -4,13 +4,13 @@ from statistics import mean
 
 known_face_encodings = []
 known_face_names = []
-person1_location = ["Prabda","Jesky"]
+person1_location = ["Jesky"]
 d_m = []
 n = 0
 number_img = 0
 
 for name in person1_location :
-    while number_img <= 5:
+    while number_img <= 30:
         person_image = face_recognition.load_image_file("image_train/"+name+"/face"+str(n)+".jpg")
         # print(person_image)
         # print(face_recognition.face_encodings(person_image)[0])

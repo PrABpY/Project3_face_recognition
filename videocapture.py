@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import serial
 
-# arduino = serial.Serial(port='COM10', baudrate=115200, timeout=.1)
+arduino = serial.Serial(port='COM10', baudrate=115200, timeout=.1)
 num_train = 40
 
 def check(matches,person1_location):
@@ -25,7 +25,7 @@ data = []
 for i in dataset :
     data.append(np.array(i))
 known_face_encodings = []
-person1_location = ["Prabda","Jesky","Golf"]
+person1_location = ["Prabda","Jesky","James"]
 n = 0
 number_img = 0
 coun = 0
@@ -73,10 +73,10 @@ if tec == "yes":
             if name != "Unknown":
                 color = (0, 255, 0)
                 coun += 1
-                # if coun == 10 :
-                    # arduino.write(b'H')
+                if coun == 7 :
+                    arduino.write(b'H')
                     # print("W")
-            # arduino.write(b'L')
+            arduino.write(b'L')
             # print(coun)
             cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
             cv2.rectangle(frame, (left, bottom - 35), (right, bottom), color, cv2.FILLED)
