@@ -4,7 +4,7 @@ from statistics import mean
 
 known_face_encodings = []
 known_face_names = []
-person1_location = ["Jesky"]
+person1_location = ["BILL","siwakorn","chatchanan"]
 d_m = []
 n = 0
 number_img = 0

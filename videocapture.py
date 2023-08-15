@@ -11,13 +11,13 @@ def check(matches,person1_location):
     p1 = matches[0:num].count(True)
     p2 = matches[num:num*2].count(True)
     p3 = matches[num*2:num*3].count(True)
-    print(p1,p2,p3)
+    # print(p1,p2,p3)
     if p1 > p2 and p1 > p3 and p1 > num_train//4: return person1_location[0]
     if p2 > p1 and p2 > p3 and p2 > num_train//4: return person1_location[1]
     if p3 > p1 and p3 > p2 and p3 > num_train//4: return person1_location[2]
     return "Unknown"
 
-video_capture = cv2.VideoCapture(1)
+video_capture = cv2.VideoCapture(0)
 # video_capture = cv2.VideoCapture('v.mp4')
 
 dataset = np.loadtxt("data.csv",delimiter=",", dtype=str)
@@ -25,7 +25,7 @@ data = []
 for i in dataset :
     data.append(np.array(i))
 known_face_encodings = []
-person1_location = ["Prabda","Jesky","James"]
+person1_location = ["BILL","siwakorn","chatchanan"]
 n = 0
 number_img = 0
 coun = 0
@@ -75,7 +75,7 @@ if tec == "yes":
                 coun += 1
                 if coun == 7 :
                     arduino.write(b'H')
-                    # print("W")
+                    print("W")
             arduino.write(b'L')
             # print(coun)
             cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
